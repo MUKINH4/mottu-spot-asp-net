@@ -59,3 +59,6 @@ C:\Users\mirel\source\repos\mottu-spot\mottu-spot\obj\Debug\net8.0\refint\mottu-
 C:\Users\mirel\source\repos\mottu-spot\mottu-spot\obj\Debug\net8.0\mottu-spot.pdb
 C:\Users\mirel\source\repos\mottu-spot\mottu-spot\obj\Debug\net8.0\mottu-spot.genruntimeconfig.cache
 C:\Users\mirel\source\repos\mottu-spot\mottu-spot\obj\Debug\net8.0\ref\mottu-spot.dll
+D:\dev\ChallengeMottu\dotnet\mottu-spot-asp-net\mottu-spot\mottu-spot\obj\Debug\net8.0\mottu-spot.dll
+D:\dev\ChallengeMottu\dotnet\mottu-spot-asp-net\mottu-spot\mottu-spot\obj\Debug\net8.0\refint\mottu-spot.dll
+D:\dev\ChallengeMottu\dotnet\mottu-spot-asp-net\mottu-spot\mottu-spot\obj\Debug\net8.0\mottu-spot.pdb
