@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("mottu-spot")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6176be62bde47d996ad44c4ae78db33378bff7e9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+189c581a202e047acc6ba4e9a39d05f149da7e57")]
 [assembly: System.Reflection.AssemblyProductAttribute("mottu-spot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("mottu-spot")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
