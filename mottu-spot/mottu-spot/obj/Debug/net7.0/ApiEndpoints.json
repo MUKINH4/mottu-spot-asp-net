@@ -169,8 +169,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "patioDto",
-        "Type": "mottu_spot.DTO.PatioDTO",
+        "Name": "patioCreateDto",
+        "Type": "mottu_spot.DTO.PatioCreateDTO",
         "IsRequired": true
       }
     ],
@@ -263,7 +263,7 @@
       },
       {
         "Name": "patioDto",
-        "Type": "mottu_spot.DTO.PatioDTO",
+        "Type": "mottu_spot.DTO.PatioCreateDTO",
         "IsRequired": true
       }
     ],

@@ -16,7 +16,7 @@ namespace mottu_spot.Controllers
             _motoService = motoService;
         }
 
-        private MotoDTO ToResponseDTO(Moto moto)
+        private MotoResponseDTO ToResponseDTO(Moto moto)
         {
             Dispositivo? dispositivo = null;
             if (moto.Dispositivo != null)
@@ -27,7 +27,7 @@ namespace mottu_spot.Controllers
                     Ativo = moto.Dispositivo.Ativo
                 };
             }
-            return new MotoDTO
+            return new MotoResponseDTO
             {
                 Id = moto.Id,
                 Placa = moto.Placa,

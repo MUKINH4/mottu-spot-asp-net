@@ -18,12 +18,12 @@ namespace mottu_spot.Controllers
 
         // POST: api/patio
         [HttpPost]
-        public async Task<ActionResult<Patio>> AdicionarPatio([FromBody] PatioDTO patioDto)
+        public async Task<ActionResult<Patio>> AdicionarPatio([FromBody] PatioCreateDTO patioCreateDto)
         {
-            if (patioDto == null)
+            if (patioCreateDto == null)
                 return BadRequest();
 
-            var createdPatio = await _patioService.CriarPatioAsync(patioDto);
+            var createdPatio = await _patioService.CriarPatioAsync(patioCreateDto);
             return CreatedAtAction(nameof(BuscarPatioPorId), new { id = createdPatio.Id }, createdPatio);
         }
 
@@ -53,7 +53,8 @@ namespace mottu_spot.Controllers
                     Placa = m.Placa,
                     Descricao = m.Descricao,
                     Status = m.Status.ToString(),
-                    PatioId = m.PatioId
+                    PatioId = m.PatioId,
+                    Dispositivo = m.Dispositivo
                 }).ToList() ?? new List<MotoResponseDTO>()
             }).ToList();
 
@@ -75,17 +76,24 @@ namespace mottu_spot.Controllers
         [HttpDelete("{id:long}")]
         public async Task<IActionResult> DeletarPatio(long id)
         {
-            var patio = await _patioService.BuscarPatioPorIdAsync(id);
-            if (patio == null)
-                return NotFound();
+            try
+            {
+                var patio = await _patioService.BuscarPatioPorIdAsync(id);
+                if (patio == null)
+                    return NotFound();
 
-            await _patioService.DeletarPatioAsync(id);
-            return NoContent();
+                await _patioService.DeletarPatioAsync(id);
+                return NoContent();
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         // PUT: api/patio/{id}
         [HttpPut("{id:long}")]
-        public async Task<ActionResult<Patio>> AtualizarPatio(long id, [FromBody] PatioDTO patioDto)
+        public async Task<ActionResult<Patio>> AtualizarPatio(long id, [FromBody] PatioCreateDTO patioDto)
         {
             var patio = await _patioService.BuscarPatioPorIdAsync(id);
             if (patio == null)

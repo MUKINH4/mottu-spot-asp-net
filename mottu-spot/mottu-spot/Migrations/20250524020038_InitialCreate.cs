@@ -71,7 +71,7 @@ namespace mottu_spot.Migrations
                         column: x => x.PatioId,
                         principalTable: "Patios",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -103,6 +103,12 @@ namespace mottu_spot.Migrations
                 name: "IX_Motos_PatioId",
                 table: "Motos",
                 column: "PatioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Motos_Placa",
+                table: "Motos",
+                column: "Placa",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Patios_EnderecoId",

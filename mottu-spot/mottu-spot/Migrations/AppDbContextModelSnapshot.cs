@@ -114,6 +114,9 @@ namespace mottu_spot.Migrations
 
                     b.HasIndex("PatioId");
 
+                    b.HasIndex("Placa")
+                        .IsUnique();
+
                     b.ToTable("Motos");
                 });
 
@@ -158,7 +161,7 @@ namespace mottu_spot.Migrations
                     b.HasOne("mottu_spot.Model.Patio", "Patio")
                         .WithMany("Motos")
                         .HasForeignKey("PatioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Patio");

@@ -7,11 +7,11 @@ namespace mottu_spot.Services
 {
     public interface IPatioService
     {
-        Task<Patio> CriarPatioAsync(PatioDTO patioDto);
+        Task<Patio> CriarPatioAsync(PatioCreateDTO patioDto);
         Task<List<Patio>> ListPatiosAsync();
         Task<Patio?> BuscarPatioPorIdAsync(long id);
         Task DeletarPatioAsync(long id);
-        Task AtualizarPatioAsync(long id, PatioDTO patioDto);
+        Task AtualizarPatioAsync(long id, PatioCreateDTO patioDto);
     }
 
     public class PatioService : IPatioService
@@ -23,17 +23,17 @@ namespace mottu_spot.Services
             _context = context;
         }
 
-        public async Task<Patio> CriarPatioAsync(PatioDTO patioDto)
+        public async Task<Patio> CriarPatioAsync(PatioCreateDTO patioDto)
         {
             var endereco = new Endereco
             {
-                Cep = patioDto.Cep,
-                Pais = patioDto.Pais,
-                Cidade = patioDto.Cidade,
-                Estado = patioDto.Estado,
-                Logradouro = patioDto.Logradouro,
-                Bairro = patioDto.Bairro,
-                Numero = patioDto.Numero
+                Cep = patioDto.Endereco.Cep,
+                Pais = patioDto.Endereco.Pais,
+                Cidade = patioDto.Endereco.Cidade,
+                Estado = patioDto.Endereco.Estado,
+                Logradouro = patioDto.Endereco.Logradouro,
+                Bairro = patioDto.Endereco.Bairro,
+                Numero = patioDto.Endereco.Numero
             };
             _context.Enderecos.Add(endereco);
             await _context.SaveChangesAsync();
@@ -75,14 +75,21 @@ namespace mottu_spot.Services
             if (patio == null)
                 throw new ArgumentException("Pátio não encontrado");
 
-            if (patio.Endereco != null)
-                _context.Enderecos.Remove(patio.Endereco);
+            try
+            {
+                if (patio.Endereco != null)
+                    _context.Enderecos.Remove(patio.Endereco);
 
-            _context.Patios.Remove(patio);
-            await _context.SaveChangesAsync();
+                _context.Patios.Remove(patio);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex) when (ex.InnerException != null && ex.InnerException.Message.Contains("ORA-02292"))
+            {
+                throw new InvalidOperationException("Não é possível apagar pátios com motos associadas.");
+            }
         }
 
-        public async Task AtualizarPatioAsync(long id, PatioDTO patioDto)
+        public async Task AtualizarPatioAsync(long id, PatioCreateDTO patioDto)
         {
             var patio = await _context.Patios
                 .Include(p => p.Endereco)
@@ -94,6 +101,9 @@ namespace mottu_spot.Services
             if (patioDto.Nome == null)
                 throw new ArgumentException("nome: nome não pode ser nulo");
 
+            // Atualiza nome
+            patio.Nome = patioDto.Nome;
+
             // Atualiza endereço
             if (patio.Endereco == null)
             {
@@ -101,15 +111,16 @@ namespace mottu_spot.Services
                 _context.Enderecos.Add(patio.Endereco);
             }
 
-            patio.Endereco.Cep = patioDto.Cep;
-            patio.Endereco.Pais = patioDto.Pais;
-            patio.Endereco.Cidade = patioDto.Cidade;
-            patio.Endereco.Estado = patioDto.Estado;
-            patio.Endereco.Logradouro = patioDto.Logradouro;
-            patio.Endereco.Bairro = patioDto.Bairro;
-            patio.Endereco.Numero = patioDto.Numero;
+            if (patioDto.Endereco == null)
+                throw new ArgumentException("Endereço não pode ser nulo");
 
-            patio.Nome = patioDto.Nome;
+            patio.Endereco.Cep = patioDto.Endereco.Cep;
+            patio.Endereco.Pais = patioDto.Endereco.Pais;
+            patio.Endereco.Cidade = patioDto.Endereco.Cidade;
+            patio.Endereco.Estado = patioDto.Endereco.Estado;
+            patio.Endereco.Logradouro = patioDto.Endereco.Logradouro;
+            patio.Endereco.Bairro = patioDto.Endereco.Bairro;
+            patio.Endereco.Numero = patioDto.Endereco.Numero;
 
             await _context.SaveChangesAsync();
         }

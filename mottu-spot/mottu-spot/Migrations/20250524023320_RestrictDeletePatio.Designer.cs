@@ -12,8 +12,8 @@ using mottu_spot.Data;
 namespace mottu_spot.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250522033012_SecondCreate")]
-    partial class SecondCreate
+    [Migration("20250524023320_RestrictDeletePatio")]
+    partial class RestrictDeletePatio
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -117,6 +117,9 @@ namespace mottu_spot.Migrations
 
                     b.HasIndex("PatioId");
 
+                    b.HasIndex("Placa")
+                        .IsUnique();
+
                     b.ToTable("Motos");
                 });
 
@@ -161,7 +164,7 @@ namespace mottu_spot.Migrations
                     b.HasOne("mottu_spot.Model.Patio", "Patio")
                         .WithMany("Motos")
                         .HasForeignKey("PatioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Patio");

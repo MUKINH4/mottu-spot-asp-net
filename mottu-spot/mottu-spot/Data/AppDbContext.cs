@@ -19,9 +19,19 @@ namespace mottu_spot.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Moto>()
+                .HasIndex(m => m.Placa).IsUnique();
+
+            modelBuilder.Entity<Moto>()
                 .HasOne(m => m.Patio)
                 .WithMany(p => p.Motos)
-                .HasForeignKey(m => m.PatioId);
+                .HasForeignKey(m => m.PatioId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Moto>()
+                .HasOne(m => m.Dispositivo)
+                .WithOne(d => d.Moto)
+                .HasForeignKey<Dispositivo>(d => d.MotoId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Dispositivo>()
                 .HasOne(d => d.Moto)

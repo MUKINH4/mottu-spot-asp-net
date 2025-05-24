@@ -9,6 +9,5 @@ namespace mottu_spot.DTO
         public string Descricao { get; set; }
         public string Status { get; set; }
         public long? PatioId { get; set; }
-        public Dispositivo? Dispositivo { get; set; }
     }
 }

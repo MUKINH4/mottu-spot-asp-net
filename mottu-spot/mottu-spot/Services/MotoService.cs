@@ -17,6 +17,10 @@ namespace mottu_spot.Services
 
         public async Task<Moto> AdicionarMotoAsync(MotoDTO motoDto)
         {
+            var placaExiste = await _context.Motos.AnyAsync(m => m.Placa == motoDto.Placa);
+            if (placaExiste)
+                throw new Exception("Já existe uma moto cadastrada com esta placa.");
+
             var patio = await _context.Patios.FindAsync(motoDto.PatioId);
             if (patio == null)
                 throw new Exception("Pátio não encontrado");

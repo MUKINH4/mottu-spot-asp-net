@@ -12,7 +12,7 @@ using mottu_spot.Data;
 namespace mottu_spot.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250522025344_InitialCreate")]
+    [Migration("20250524020038_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -117,6 +117,9 @@ namespace mottu_spot.Migrations
 
                     b.HasIndex("PatioId");
 
+                    b.HasIndex("Placa")
+                        .IsUnique();
+
                     b.ToTable("Motos");
                 });
 
@@ -161,7 +164,7 @@ namespace mottu_spot.Migrations
                     b.HasOne("mottu_spot.Model.Patio", "Patio")
                         .WithMany("Motos")
                         .HasForeignKey("PatioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.SetNull)
                         .IsRequired();
 
                     b.Navigation("Patio");

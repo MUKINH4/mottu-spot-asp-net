@@ -287,17 +287,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PatioDTO"
+                "$ref": "#/components/schemas/PatioCreateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/PatioDTO"
+                "$ref": "#/components/schemas/PatioCreateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/PatioDTO"
+                "$ref": "#/components/schemas/PatioCreateDTO"
               }
             }
           }
@@ -441,17 +441,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PatioDTO"
+                "$ref": "#/components/schemas/PatioCreateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/PatioDTO"
+                "$ref": "#/components/schemas/PatioCreateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/PatioDTO"
+                "$ref": "#/components/schemas/PatioCreateDTO"
               }
             }
           }
@@ -663,9 +663,6 @@
             "type": "integer",
             "format": "int64",
             "nullable": true
-          },
-          "dispositivo": {
-            "$ref": "#/components/schemas/Dispositivo"
           }
         },
         "additionalProperties": false
@@ -693,6 +690,9 @@
             "type": "integer",
             "format": "int64",
             "nullable": true
+          },
+          "dispositivo": {
+            "$ref": "#/components/schemas/Dispositivo"
           }
         },
         "additionalProperties": false
@@ -725,40 +725,29 @@
         },
         "additionalProperties": false
       },
-      "PatioDTO": {
+      "PatioCreateDTO": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int64"
           },
-          "cep": {
+          "nome": {
             "type": "string",
             "nullable": true
           },
-          "logradouro": {
-            "type": "string",
-            "nullable": true
-          },
-          "numero": {
+          "endereco": {
+            "$ref": "#/components/schemas/EnderecoDTO"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PatioDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "integer",
-            "format": "int32"
-          },
-          "bairro": {
-            "type": "string",
-            "nullable": true
-          },
-          "cidade": {
-            "type": "string",
-            "nullable": true
-          },
-          "estado": {
-            "type": "string",
-            "nullable": true
-          },
-          "pais": {
-            "type": "string",
-            "nullable": true
+            "format": "int64"
           },
           "nome": {
             "type": "string",
