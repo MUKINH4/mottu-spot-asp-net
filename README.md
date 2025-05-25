@@ -7,7 +7,7 @@ O objetivo deste projeto é organizar os pátios da empresa Mottu fornecendo ras
 - Acionar um alarme sonoro (beep) para facilitar a localização da moto no pátio.
 - Acender uma luz indicadora para sinalizar visualmente sua posição.
 
-A API Spring Boot gerencia as operações de criação, listagem, atualização e remoção de pátios e motos, além de armazenar informações em um banco de dados relacional.
+A API em ASP.NET gerencia as operações de criação, listagem, atualização e remoção de pátios e motos, além de armazenar informações em um banco de dados relacional e acionamento do dispositivo implementadoo na moto.
 
 ## Integrantes
 
